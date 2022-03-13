@@ -8,7 +8,7 @@ import Data.List (union)
 import Data.Monoid (All(getAll, All))
 
 
-type Symb = Int
+type Symb = String
 
 
 infixr 7 :/\:, :/\:., :/\:*

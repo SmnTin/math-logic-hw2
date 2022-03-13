@@ -10,7 +10,7 @@ import Control.Monad (guard)
 
 
 data SatResult = Sat Interpretation | Unsat
-type SatSolver = CNF -> SatResult
+type SatSolver m = CNF -> m SatResult
 
 newtype Pos = Pos { getPos :: (Int, Int) }
 type Placement = [Pos]
@@ -25,10 +25,10 @@ generateNeqRules vars = do
 
 
 posToSymb :: Int -> Pos -> Symb
-posToSymb n (Pos (x, y)) = x * n + y
+posToSymb n (Pos (x, y)) = show $ x * n + y
 
 symbToPos :: Int -> Symb -> Pos
-symbToPos n s = Pos (s `div` n, s `mod` n)
+symbToPos n s = let i = read s in Pos (i `div` n, i `mod` n)
 
 
 column :: Int -> Int -> [Pos]
@@ -52,7 +52,7 @@ diagB :: Int -> Int -> [Pos]
 diagB n d = do
     r <- [0..d]
     let c = n - 1 - d + r
-    guard $ r < n && c < n
+    guard $ r < n && c >= 0
     return $ Pos (r, c)
 
 
@@ -84,7 +84,9 @@ getPositions :: Int -> Interpretation -> Placement
 getPositions n int = symbToPos n <$> map fst (filter snd int)
 
 
-placeQueens :: Int -> SatSolver -> Maybe Placement
-placeQueens n solver = case solver $ toForm $ generateFormula n of
-    Sat int -> Just $ getPositions n int
-    Unsat   -> Nothing
+placeQueens :: Monad m => Int -> SatSolver m -> m (Maybe Placement)
+placeQueens n solver = do 
+    result <- solver $ toForm $ generateFormula n
+    return $ case result of
+        Sat int -> Just $ getPositions n int
+        Unsat   -> Nothing

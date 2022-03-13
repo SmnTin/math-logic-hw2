@@ -1,4 +1,4 @@
-# math-logic-hw1
+# math-logic-hw2
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ You need [Stack](https://docs.haskellstack.org/en/stable/README/) build system o
 
 Firstly, obtain a local copy of the code and move to the project root:
 ```console
-$ git clone https://github.com/SmnTin/math-logic-hw1
+$ git clone https://github.com/SmnTin/math-logic-hw2
 $ cd math-logic-hw1
 ```
 

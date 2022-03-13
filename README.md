@@ -32,6 +32,7 @@ $ stack run queens 8
 5 7
 1 8
 ```
+If it is possible to place the queens, you get 1-indexed coordinates of each queen. 
 
 If it is impossible to place the queens, an empty output will be printed:
 ```console

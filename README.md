@@ -33,7 +33,7 @@ $ stack run queens 8
 1 8
 ```
 
-If it is impossible to place the queens, you an empty output will be printed:
+If it is impossible to place the queens, an empty output will be printed:
 ```console
 $ stack run queens 2
 $
